@@ -17,7 +17,7 @@ RUN apt-get update \
     git \
     && apt-get clean
 
-# set node version
+# set jdk version
 ENV JDK_FILE jdk-8u71-linux-x64.tar.gz
 
 # download jdk 
@@ -30,6 +30,15 @@ RUN cd \
   && rm "$JDK_FILE" \
   && ln -s /opt/tools/jdk1.8.0_71 /opt/tools/jdk
 
-# set path for node realated commands
+# set maven version
+ENV MAVEN_VERSION 3.3.9
+RUN curl -fsSL https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /opt/tools \
+  && ln -s /opt/tools/apache-maven-$MAVEN_VERSION /opt/tools/mvn
+
+# set path for java realated commands
 ENV JAVA_HOME /opt/tools/jdk
-ENV PATH $PATH:/opt/tools/jdk/bin
+ENV M2_HOME /opt/tools/mvn
+ENV PATH $PATH:/opt/tools/jdk/bin:/opt/tools/mvn/bin
+
+# since the user is root, simply set the local cache and you can mount extrals
+VOLUME /root/.m2
