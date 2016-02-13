@@ -18,7 +18,7 @@ RUN apt-get update \
     && apt-get clean
 
 # set node version
-ENV NODE_VERSION 4.2.6
+ENV NODE_VERSION 4.3.0
 
 # download node.js
 RUN mkdir -p /opt/tools

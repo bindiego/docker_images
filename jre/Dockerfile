@@ -18,17 +18,17 @@ RUN apt-get update \
     && apt-get clean
 
 # set node version
-ENV JRE_FILE jre-8u71-linux-x64.tar.gz
+ENV JRE_FILE jre-8u73-linux-x64.tar.gz
 
 # download jre
 RUN mkdir -p /opt/tools
 RUN cd \
   && curl -v -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" \
-    http://download.oracle.com/otn-pub/java/jdk/8u71-b15/$JRE_FILE \
+    http://download.oracle.com/otn-pub/java/jdk/8u73-b02/$JRE_FILE \
     > $JRE_FILE \
   && tar -xzf "$JRE_FILE" -C /opt/tools/ \
   && rm "$JRE_FILE" \
-  && ln -s /opt/tools/jre1.8.0_71 /opt/tools/jre
+  && ln -s /opt/tools/jre1.8.0_73 /opt/tools/jre
 
 # set path for node realated commands
 ENV JAVA_HOME /opt/tools/jre

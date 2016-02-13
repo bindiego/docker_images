@@ -18,17 +18,17 @@ RUN apt-get update \
     && apt-get clean
 
 # set jdk version
-ENV JDK_FILE jdk-8u71-linux-x64.tar.gz
+ENV JDK_FILE jdk-8u73-linux-x64.tar.gz
 
 # download jdk 
 RUN mkdir -p /opt/tools
 RUN cd \
   && curl -v -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" \
-    http://download.oracle.com/otn-pub/java/jdk/8u71-b15/$JDK_FILE \
+    http://download.oracle.com/otn-pub/java/jdk/8u73-b02/$JDK_FILE \
     > $JDK_FILE \
   && tar -xzf "$JDK_FILE" -C /opt/tools/ \
   && rm "$JDK_FILE" \
-  && ln -s /opt/tools/jdk1.8.0_71 /opt/tools/jdk
+  && ln -s /opt/tools/jdk1.8.0_73 /opt/tools/jdk
 
 # set maven version
 ENV MAVEN_VERSION 3.3.9
