@@ -1,3 +1,3 @@
 .PHONY:
 build:
-	docker build -t ptjdk -f Dockerfile .
+	docker build -t bwjdk -f Dockerfile .

@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM bwubuntu:18.04
 
 USER root
 
