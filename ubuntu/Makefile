@@ -1,3 +1,3 @@
 .PHONY:
 build:
-	docker build -t ptubuntu -f Dockerfile .
+	docker build -t bwubuntu -f Dockerfile .

@@ -1,10 +1,10 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 USER root
 
 # update ubuntu repo for China
-RUN rm /etc/apt/sources.list
-ADD ./sources.list.xenial /etc/apt/sources.list
+#RUN rm /etc/apt/sources.list
+#ADD ./sources.list.xenial /etc/apt/sources.list
 #RUN apt-get clean && \
   #apt-get update --fix-missing
 
