@@ -15,6 +15,9 @@ RUN apt-get update \
     curl \
     python \
     git \
+    wget \
+    zip \
+    unzip \
     && apt-get clean
 
 # create ssh key
