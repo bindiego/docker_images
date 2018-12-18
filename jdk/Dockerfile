@@ -22,8 +22,8 @@ RUN curl -fsSL https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/bina
 
 # set gradle version
 ENV GRADLE_VER 5.0
-RUN curl -fsSL https://services.gradle.org/distributions/gradle-$GRADLE_VER-bin.zip && \
-  unzip -d /opt/tools gradle-$GRADLE_VER-bin.zip && ln -s /opt/tools/gradle-$GRADEL_VER /opt/tools/gradle && \
+RUN curl -fsSL https://services.gradle.org/distributions/gradle-$GRADLE_VER-bin.zip > gradle-$GRADLE_VER-bin.zip && \
+  unzip -d /opt/tools gradle-$GRADLE_VER-bin.zip && ln -s /opt/tools/gradle-$GRADLE_VER /opt/tools/gradle && \
   rm -rf gradle-$GRADLE_VER-bin.zip
 
 # set path for java realated commands
