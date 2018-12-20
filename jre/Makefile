@@ -1,3 +1,3 @@
 .PHONY:
 build:
-	docker build -t ptjre -f Dockerfile .
+	docker build -t bwjre:8 -f Dockerfile .
