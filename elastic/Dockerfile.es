@@ -10,7 +10,7 @@ RUN swapoff -a
 # setup application deployment directories
 RUN mkdir -p /bwtmp
 RUN mkdir -p /opt/elasticsearch
-RUN mkdir -p /data/es/logs
+RUN mkdir -p /data
 
 RUN curl \
     https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$ES_VER.tar.gz \
