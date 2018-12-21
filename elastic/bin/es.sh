@@ -8,7 +8,7 @@ IPADDR=$(hostname -I | cut -d ' ' -f 1)
 
 echo -n "Starting elasticsearch ... "
 
-ES_JAVA_OPTS="-Xms1g -Xmx1g -XX:-UseConcMarkSweepGC -XX:-UseCMSInitiatingOccupancyOnly -XX:+UseG1GC -XX:InitiatingHeapOccupancyPercent=75" \
+ES_JAVA_OPTS="-Xms$ES_HEAP -Xmx$ES_HEAP -XX:-UseConcMarkSweepGC -XX:-UseCMSInitiatingOccupancyOnly -XX:+UseG1GC -XX:InitiatingHeapOccupancyPercent=75" \
     /opt/elasticsearch/bin/elasticsearch \
     -p /opt/es.pid \
     -Ecluster.name=bindigo \

@@ -33,6 +33,8 @@ RUN chown -R elastic /data
 
 USER elastic
 
+ENV ES_HEAP 1g
+
 VOLUME /data
 
 ENTRYPOINT ["/opt/elasticsearch/bin/es.sh"]

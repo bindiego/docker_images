@@ -33,6 +33,7 @@ run_es:
 	docker run \
 		--name elasticsearch \
 		-p 19200:9200 \
+	    -e ES_HEAP=1g \
 		-v $(pwd)/data:/data \
 		--restart=unless-stopped \
 		-m 2G --memory-swap -1 \
