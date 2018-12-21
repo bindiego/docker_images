@@ -1,0 +1,35 @@
+FROM bwubuntu:18.04
+
+USER root
+
+ENV ES_VER 6.5.4
+
+# setup application deployment directories
+RUN mkdir -p /bwtmp
+RUN mkdir -p /opt/kibana
+RUN mkdir -p /data
+
+RUN curl https://artifacts.elastic.co/downloads/kibana/kibana-$ES_VER-linux-x86_64.tar.gz \
+    -o /bwtmp/kibana.tar.gz
+
+RUN tar xzf /bwtmp/kibana.tar.gz -C /bwtmp && \
+    cp -af /bwtmp/kibana-$ES_VER-linux-x86_64/* /opt/kibana && \
+    rm -rf /bwtmp/*
+
+COPY conf/kibana.yml /opt/kibana/config/kibana.yml
+COPY bin/kbn.sh /opt/kibana/bin/
+
+RUN useradd elastic
+RUN usermod -aG sudo elastic
+RUN chown -R elastic /opt
+RUN chown -R elastic /data
+
+USER elastic
+
+ENV ES_IP localhost
+ENV ES_PORT 9200
+
+VOLUME /data
+
+ENTRYPOINT ["/opt/kibana/bin/kbn.sh"]
+# CMD ["test"]
