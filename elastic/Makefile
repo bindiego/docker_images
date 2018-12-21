@@ -2,6 +2,17 @@ pwd := $(shell pwd)
 ipaddr := $(shell hostname -I | cut -d ' ' -f 1)
 
 .PHONY:
+all: build run
+
+.PHONY:
+clean:
+	@docker stop kibana elasticsearch
+	@docker rm kibana elasticsearch
+	@-docker rm -v $(docker ps -a -q -f status=exited)
+	@-docker rmi $(docker images -f "dangling=true" -q)
+	# rm -rf $(pwd)/data
+
+.PHONY:
 build: build_es build_kbn
 
 .PHONY:
@@ -9,11 +20,11 @@ run: run_es run_kbn
 
 .PHONY:
 build_es:
-	docker build -t bwes -f Dockerfile.es .
+	@docker build -t bwes -f Dockerfile.es .
 
 .PHONY:
 build_kbn:
-	docker build -t bwkbn -f Dockerfile.kbn .
+	@docker build -t bwkbn -f Dockerfile.kbn .
 
 .PHONY:
 run_es:
