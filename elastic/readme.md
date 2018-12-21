@@ -1,4 +1,4 @@
-# Run elastic stack in few commands
+# Run Elastic Stack in Docker
 
 ## Prerequisite
 Please navigate into the parent folder, ubuntu & jdk, and run
