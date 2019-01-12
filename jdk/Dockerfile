@@ -21,7 +21,7 @@ RUN curl -fsSL https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/bina
   && ln -s /opt/tools/apache-maven-$MAVEN_VERSION /opt/tools/mvn
 
 # set gradle version
-ENV GRADLE_VER 5.0
+ENV GRADLE_VER 5.1
 RUN curl -fsSL https://services.gradle.org/distributions/gradle-$GRADLE_VER-bin.zip > gradle-$GRADLE_VER-bin.zip && \
   unzip -d /opt/tools gradle-$GRADLE_VER-bin.zip && ln -s /opt/tools/gradle-$GRADLE_VER /opt/tools/gradle && \
   rm -rf gradle-$GRADLE_VER-bin.zip
