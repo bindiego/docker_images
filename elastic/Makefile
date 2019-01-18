@@ -5,18 +5,23 @@ ipaddr := $(shell hostname -I | cut -d ' ' -f 1)
 all: build run
 
 .PHONY:
-clean:
-	@docker stop kibana elasticsearch
-	@docker rm kibana elasticsearch
+clean: stop
+	@docker rm apm_server kibana elasticsearch
 	@-docker rm -v $(docker ps -a -q -f status=exited)
 	@-docker rmi $(docker images -f "dangling=true" -q)
 	# rm -rf $(pwd)/data
 
 .PHONY:
-build: build_es build_kbn
+build: build_es build_kbn build_apm
 
 .PHONY:
-run: run_es run_kbn
+run: run_es run_kbn run_apm
+
+.PHONY:
+stop: 
+	@-docker stop apm_server 
+	@-docker stop kibana
+	@-docker stop elasticsearch
 
 .PHONY:
 build_es:
@@ -25,6 +30,10 @@ build_es:
 .PHONY:
 build_kbn:
 	@docker build -t bwkbn -f Dockerfile.kbn .
+
+.PHONY:
+build_apm:
+	@docker build -t bwapm -f Dockerfile.apm .
 
 .PHONY:
 run_es:
@@ -56,3 +65,22 @@ run_kbn:
 		--cpuset-cpus="0,1" \
 		-d \
 		bwkbn
+
+.PHONY:
+run_apm:
+	[ -d data ] || mkdir -p data
+
+	docker run \
+		--name apm_server \
+		-p 18200:8200 \
+		-p 15066:5066 \
+		-v $(pwd)/data:/data \
+	    -e ES_IP=$(ipaddr) \
+	    -e ES_PORT=19200 \
+	    -e KBN_IP=$(ipaddr) \
+	    -e KBN_PORT=15601 \
+		--restart=unless-stopped \
+		-m 1G --memory-swap -1 \
+		--cpuset-cpus="0,1" \
+		-d \
+		bwapm
