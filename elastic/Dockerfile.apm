@@ -22,6 +22,8 @@ RUN tar xzf /bwtmp/apm_server.tar.gz -C /bwtmp && \
 COPY bin/apm.sh /opt/apm_server
 COPY conf/apm-server.yml /opt/apm_server/apm-server.yml
 
+RUN chmod go-w /opt/apm_server/apm-server.yml
+
 ENV CONF_FILE /opt/apm_server/apm-server.yml
 ENV KBN_IP localhost
 ENV KBN_PORT 5601
