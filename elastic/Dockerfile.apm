@@ -1,0 +1,32 @@
+FROM bwgo:1.11
+
+USER root
+
+ENV ES_VER 6.5.4
+
+RUN swapoff -a
+
+# setup application deployment directories
+RUN mkdir -p /bwtmp
+RUN mkdir -p /opt/apm_server/logs
+RUN mkdir -p /data
+
+RUN curl \
+    https://artifacts.elastic.co/downloads/apm-server/apm-server-$ES_VER-linux-x86_64.tar.gz \
+    --output /bwtmp/apm_server.tar.gz
+
+RUN tar xzf /bwtmp/apm_server.tar.gz -C /bwtmp && \
+    cp -af /bwtmp/apm-server-$ES_VER-linux-x86_64/* /opt/apm_server && \
+    rm -rf /bwtmp/*
+
+COPY bin/apm.sh /opt/apm_server
+COPY conf/apm-server.yml /opt/apm_server/apm-server.yml
+
+ENV CONF_FILE /opt/apm_server/apm-server.yml
+ENV KBN_IP localhost
+ENV KBN_PORT 5601
+ENV ES_IP localhost
+ENV ES_PORT 9200
+
+ENTRYPOINT ["/opt/apm_server/apm.sh"]
+# CMD ["test"]
