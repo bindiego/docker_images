@@ -3,17 +3,18 @@ FROM bwubuntu:18.04
 USER root
 
 # set jdk version
-ENV JDK_FILE jdk-11.0.1_linux-x64_bin.tar.gz
+ENV JDK_FILE jdk-11.0.2_linux-x64_bin.tar.gz
+
 
 # download jdk 
 RUN mkdir -p /opt/tools
 RUN cd \
   && curl -v -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" \
-    https://download.oracle.com/otn-pub/java/jdk/11.0.1+13/90cf5d8f270a4347a95050320eef3fb7/$JDK_FILE \
+    http://download.oracle.com/otn-pub/java/jdk/11.0.2+9/f51449fcd52f4d52b93a989c5c56ed3c/$JDK_FILE \
     > $JDK_FILE \
   && tar -xzf "$JDK_FILE" -C /opt/tools/ \
   && rm "$JDK_FILE" \
-  && ln -s /opt/tools/jdk-11.0.1 /opt/tools/jdk
+  && ln -s /opt/tools/jdk-11.0.2 /opt/tools/jdk
 
 # set maven version
 ENV MAVEN_VERSION 3.6.0
@@ -21,7 +22,7 @@ RUN curl -fsSL https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/bina
   && ln -s /opt/tools/apache-maven-$MAVEN_VERSION /opt/tools/mvn
 
 # set gradle version
-ENV GRADLE_VER 5.0
+ENV GRADLE_VER 5.1.1
 RUN curl -fsSL https://services.gradle.org/distributions/gradle-$GRADLE_VER-bin.zip > gradle-$GRADLE_VER-bin.zip && \
   unzip -d /opt/tools gradle-$GRADLE_VER-bin.zip && ln -s /opt/tools/gradle-$GRADLE_VER /opt/tools/gradle && \
   rm -rf gradle-$GRADLE_VER-bin.zip
