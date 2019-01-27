@@ -6,6 +6,16 @@ prereq:
 	@sudo sysctl -w vm.max_map_count=262144
 
 .PHONY:
+docker_ubuntu:
+	@cd ../ubuntu && make build && cd $(pwd)
+.PHONY:
+docker_jdk:
+	@cd ../jdk && make build && cd $(pwd)
+.PHONY:
+docker_go:
+	@cd ../go && make build && cd $(pwd)
+
+.PHONY:
 all: build run
 
 .PHONY:
@@ -28,15 +38,15 @@ stop:
 	@-docker stop elasticsearch
 
 .PHONY:
-build_es:
+build_es: docker_ubuntu docker_jdk
 	@docker build -t bwes -f Dockerfile.es .
 
 .PHONY:
-build_kbn:
+build_kbn: docker_ubuntu
 	@docker build -t bwkbn -f Dockerfile.kbn .
 
 .PHONY:
-build_apm:
+build_apm: docker_ubuntu docker_go
 	@docker build -t bwapm -f Dockerfile.apm .
 
 .PHONY:
