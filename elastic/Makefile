@@ -2,6 +2,10 @@ pwd := $(shell pwd)
 ipaddr := $(shell hostname -I | cut -d ' ' -f 1)
 
 .PHONY:
+prereq:
+	@sudo sysctl -w vm.max_map_count=262144
+
+.PHONY:
 all: build run
 
 .PHONY:
@@ -36,7 +40,7 @@ build_apm:
 	@docker build -t bwapm -f Dockerfile.apm .
 
 .PHONY:
-run_es:
+run_es: prereq
 	[ -d data ] || mkdir -p data
 
 	docker run \
