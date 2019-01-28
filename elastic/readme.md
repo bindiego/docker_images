@@ -31,9 +31,28 @@ Simply update the environment variable `ES_VER` in dockerfiles respectively. Thi
 
 Similar to Elasticsearch, find the run_kbn task in Makefile. Then change `-m 1G` in `run_kbn` task to the number you want.
 
+### APM server 
+`make all` will spawn APM server now, same as Kibana if you want to allocate more runtime memory.
+
 ### IMPORTANT
 
 All of the data will be written outside the container on your local disk. By default, a folder called data will be created at this project root. So you will not lose anything by restarting or upgrading your deployment.
+
+## Turn on security
+First of all, get into Kibana and turn on your security. Then, follow these instructions bellow.
+
+### Elasticsearch do it once
+Log into the container
+```
+docker exec -it elasticsearch /bin/bash
+/opt/elasticsearch/bin/elasticsearch-setup-passwords interactive
+```
+Set the passwords you want
+
+### Kibana
+Recommend you updated `conf/kibana.yml` file and rebuild the image then run, you will only need to do this once.
+
+Alternatively, log into the kibana instance running then update the yaml file accordingly, then you can simply restart your container. But for later update, you gota have to it again.
 
 ## Clean up
 
