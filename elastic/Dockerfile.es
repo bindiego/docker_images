@@ -20,8 +20,8 @@ RUN tar xzf /bwtmp/elasticsearch.tar.gz -C /bwtmp && \
     cp -af /bwtmp/elasticsearch-$ES_VER/* /opt/elasticsearch && \
     rm -rf /bwtmp/*
 
-#RUN mkdir -p /opt/elasticsearch/config/certs
-#COPY conf/*.p12 /opt/elasticsearch/config/certs/
+RUN mkdir -p /opt/elasticsearch/config/certs
+COPY conf/*.p12 /opt/elasticsearch/config/certs/
 
 COPY conf/es.jvm.options /opt/elasticsearch/config/jvm.options
 COPY bin/es.sh /opt/elasticsearch/bin/

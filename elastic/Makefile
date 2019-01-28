@@ -51,12 +51,14 @@ build_apm: docker_ubuntu docker_go
 
 .PHONY:
 run_es: prereq
-	[ -d data ] || mkdir -p data
+	@-[ -d data/es ] || mkdir -p data/es/logs
+	@-chmod -R 777 data/es
+	@-chmod 777 data
 
 	docker run \
 		--name elasticsearch \
 		-p 19200:9200 \
-	    -e ES_HEAP=1g \
+		-e ES_HEAP=1g \
 		-v $(pwd)/data:/data \
 		--restart=unless-stopped \
 		-m 2G --memory-swap -1 \
@@ -66,7 +68,9 @@ run_es: prereq
 
 .PHONY:
 run_kbn:
-	[ -d data ] || mkdir -p data
+	@-[ -d data/kbn ] || mkdir -p data/kbn/logs
+	@-chmod -R 777 data/kbn
+	@-chmod 777 data
 
 	docker run \
 		--name kibana \
@@ -82,7 +86,7 @@ run_kbn:
 
 .PHONY:
 run_apm:
-	[ -d data ] || mkdir -p data
+	@-[ -d data ] || mkdir -p data
 
 	docker run \
 		--name apm_server \

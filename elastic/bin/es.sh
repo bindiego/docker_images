@@ -15,11 +15,13 @@ ES_JAVA_OPTS="-Xms$ES_HEAP -Xmx$ES_HEAP -XX:-UseConcMarkSweepGC -XX:-UseCMSIniti
     -Enode.name=tiger \
     -Epath.data=/data/es \
     -Epath.logs=/data/es/logs \
-    -Enetwork.host=0.0.0.0
-    #-Expack.security.transport.ssl.enabled=true \
-    #-Expack.security.transport.ssl.verification_mode=certificate \
-    #-Expack.security.transport.ssl.keystore.path=certs/elastic-certificates.p12 \
-    #-Expack.security.transport.ssl.truststore.path=certs/elastic-certificates.p12
+    -Enetwork.host=0.0.0.0 \
+    -Expack.security.audit.enabled=true \
+    -Expack.security.enabled=true \
+    -Expack.security.transport.ssl.enabled=true \
+    -Expack.security.transport.ssl.verification_mode=certificate \
+    -Expack.security.transport.ssl.keystore.path=certs/elastic-certificates.p12 \
+    -Expack.security.transport.ssl.truststore.path=certs/elastic-certificates.p12
     #-Ebootstrap.memory_lock=true
     #-d -p /opt/es.pid \
 
