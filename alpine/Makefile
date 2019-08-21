@@ -1,3 +1,3 @@
 .PHONY:
 build:
-	docker build -t ptalpine -f Dockerfile .
+	docker build -t bwalpine -f Dockerfile .

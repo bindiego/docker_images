@@ -1,4 +1,4 @@
-FROM bwubuntu:18.04
+FROM bwalpine
 
 USER root
 
