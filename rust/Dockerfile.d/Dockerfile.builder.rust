@@ -1,0 +1,37 @@
+FROM ubuntu:20.04
+LABEL descritption="Rust builder, how to create the binary in this env"
+LABEL maintainer="binwu@google.com"
+
+USER root
+
+ARG PROFILE=release
+ARG DEBIAN_FE=noninteractive
+ARG TZID=Asia/Shanghai
+
+# install ubuntu packages
+RUN apt update \
+    && DEBIAN_FRONTEND=$DEBIAN_FE TZ=$TZID apt install -y \
+    build-essential \
+    git \
+    clang \
+    libclang-dev \
+    pkg-config \
+    libssl-dev \
+    curl \
+    && apt clean
+
+# install rust build env
+ENV RUSTUP_HOME=/usr/local/rustup \
+    CARGO_HOME=/usr/local/cargo \
+    PATH=/usr/local/cargo/bin:$PATH 
+
+RUN set -eux; \
+    curl https://sh.rustup.rs -sSf | sh -s -- -y \
+    && rustup update \
+    && rustup --version; \
+    cargo --version; \
+    rustc --version;
+
+RUN mkdir /builder
+VOLUME builder /builder
+WORKDIR /builder
