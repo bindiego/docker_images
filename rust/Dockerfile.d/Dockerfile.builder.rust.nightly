@@ -1,0 +1,12 @@
+FROM rustbuilder:latest
+LABEL descritption="Rust nightly builder, how to create the binary in this env"
+LABEL maintainer="binwu@google.com"
+
+# change default to nightly
+RUN rustup default nightly \
+    && rustup update nightly \
+    && rustup update stable \
+    && rustup --version; \
+    cargo --version; \
+    rustc --version;
+

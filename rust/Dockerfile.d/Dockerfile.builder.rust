@@ -4,7 +4,7 @@ LABEL maintainer="binwu@google.com"
 
 USER root
 
-ARG PROFILE=release
+ENV PROFILE=release
 ARG DEBIAN_FE=noninteractive
 ARG TZID=Asia/Shanghai
 

@@ -1,0 +1,18 @@
+FROM rustbuilder_nightly:latest
+LABEL descritption="Polkadot builder"
+LABEL maintainer="bindiego@outlook.com"
+
+ENV BRANCH=HEAD
+ENV NIGHTLY=nightly
+
+RUN rustup target add wasm32-unknown-unknown --toolchain $NIGHTLY
+
+RUN command -v wasm-gc || \
+    cargo +$NIGHTLY install --git https://github.com/alexcrichton/wasm-gc --force
+
+ADD ./bin/polkadot_build.sh ./polkadot_build.sh
+
+RUN chmod +x ./polkadot_build.sh
+
+# this for CI tool e.g. as builder @line 1
+# RUN ./polkadot_build.sh
