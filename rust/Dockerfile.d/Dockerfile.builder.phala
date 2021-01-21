@@ -3,16 +3,19 @@ LABEL descritption="Phala builder"
 LABEL maintainer="bindiego@outlook.com"
 
 ENV BRANCH=HEAD
-ENV NIGHTLY=nightly-2020-11-05
+ENV NIGHTLY=nightly-2020-11-10
+
+RUN apt install -y lsb-release wget software-properties-common \
+    && apt autoremove -y; apt clean -y
 
 RUN rustup toolchain install $NIGHTLY
 
-RUN rustup target add wasm32-unknown-unknown --toolchain $NIGHTLY build
+RUN rustup target add wasm32-unknown-unknown --toolchain $NIGHTLY
 
 RUN command -v wasm-gc || \
     cargo +$NIGHTLY install --git https://github.com/alexcrichton/wasm-gc --force
 
-RUN wget https://apt.llvm.org/llvm.sh \
+RUN curl -o llvm.sh https://apt.llvm.org/llvm.sh \
     && chmod +x llvm.sh \
     && ./llvm.sh 10
 

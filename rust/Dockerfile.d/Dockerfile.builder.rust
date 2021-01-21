@@ -18,7 +18,7 @@ RUN apt update \
     pkg-config \
     libssl-dev \
     curl \
-    && apt clean
+    && apt autoremove -y; apt clean -y
 
 # install rust build env
 ENV RUSTUP_HOME=/usr/local/rustup \
