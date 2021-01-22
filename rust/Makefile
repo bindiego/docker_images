@@ -39,7 +39,11 @@ build_polkadot: polkadot_builder
 		polkadot_builder /builder/polkadot_build.sh
 	@docker rm polkadot_builder
 
-# build the polkadot container
+# build the polkadot container/runner
+polkadot_runner: build_polkadot $(pwd)/Dockerfile.d/Dockerfile.runner.polkadot
+	@docker build \
+		-t polkadot_runner\
+		-f $(pwd)/Dockerfile.d/Dockerfile.runner.polkadot .
 
 # Phala builder
 phala_builder: rbnightly $(pwd)/Dockerfile.d/Dockerfile.builder.phala
