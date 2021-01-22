@@ -57,4 +57,7 @@ build_phala: phala_builder
 		phala_builder /builder/phala_build.sh
 	@docker rm phala_builder
 
+# clean the build, use with cautious
+clean:
+	@-sudo rm -rf builder_*
 # .PHONY: build_polkadot
