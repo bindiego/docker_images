@@ -1,5 +1,5 @@
 FROM rustbuilder_nightly:latest
-LABEL descritption="Phala builder"
+LABEL descritption="Phala node builder"
 LABEL maintainer="bindiego@outlook.com"
 
 ENV BRANCH=HEAD
@@ -19,9 +19,9 @@ RUN curl -o llvm.sh https://apt.llvm.org/llvm.sh \
     && chmod +x llvm.sh \
     && ./llvm.sh 10
 
-ADD ./bin/phala_build.sh ./phala_build.sh
+ADD ./bin/phala_node_build.sh ./phala_node_build.sh
 
-RUN chmod +x ./phala_build.sh
+RUN chmod +x ./phala_node_build.sh
 
 # this for CI tool e.g. as builder @line 1
-# RUN ./phala_build.sh
+# RUN ./phala_node_build.sh
