@@ -1,6 +1,6 @@
 .PHONY:
 build:
-	docker build -t ptnode -f Dockerfile .
+	docker build -t nodejs:lts-14 -f Dockerfile .
 
 .PHONY:
 buildal:

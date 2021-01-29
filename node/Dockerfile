@@ -1,10 +1,10 @@
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 
 USER root
 
 # update ubuntu repo for China
-RUN rm /etc/apt/sources.list
-ADD ./sources.list.xenial /etc/apt/sources.list
+#RUN rm /etc/apt/sources.list
+#ADD ./sources.list.xenial /etc/apt/sources.list
 #RUN apt-get clean && \
   #apt-get update --fix-missing
 
@@ -18,7 +18,7 @@ RUN apt-get update \
     && apt-get clean
 
 # set node version
-ENV NODE_VERSION 4.5.0
+ENV NODE_VERSION 14.15.4
 
 # download node.js
 RUN mkdir -p /opt/tools
